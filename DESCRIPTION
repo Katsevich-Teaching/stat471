@@ -1,0 +1,17 @@
+Package: stat471
+Title: A Collection of Functions for STAT 471
+Version: 0.0.0.9000
+Authors@R: 
+    person("Eugene", "Katsevich", , "ekatsevi@wharton.upenn.edu", role = c("aut", "cre"))
+Description: A collection of functions for STAT 471.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.0
+Imports: 
+    dplyr,
+    ggplot2,
+    glmnetUtils,
+    scales,
+    tibble,
+    tidyr
