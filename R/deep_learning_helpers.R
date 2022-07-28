@@ -1,3 +1,11 @@
+#' Plot a grayscale image
+#'
+#' @param image_array An array of pixels to plot
+#' @param label The class label, to be used as the title of the plot (optional)
+#' @param class_names A list of more informative class names (optional)
+#'
+#' @return A `ggplot` object containing the image
+#' @export
 plot_grayscale = function(image_array, label = NULL, class_names = NULL){
   if(!is.null(label) & !is.null(class_names)){
     title = class_names |> dplyr::filter(class == !!label) |> dplyr::pull(name)
@@ -32,6 +40,14 @@ plot_grayscale = function(image_array, label = NULL, class_names = NULL){
   p
 }
 
+#' Plot confusion matrix
+#'
+#' @param predicted_responses A vector of predicted responses for the test set
+#' @param actual_responses A vector of actual responses for the test set
+#' @param class_names A list of more informative class names (optional)
+#'
+#' @return A `ggplot` object plotting the confusion matrix
+#' @export
 plot_confusion_matrix = function(predicted_responses, actual_responses, class_names = NULL){
   if(is.null(class_names)){
     rotate_angle = 0
@@ -67,6 +83,12 @@ plot_confusion_matrix = function(predicted_responses, actual_responses, class_na
           axis.text.x = ggplot2::element_text(angle = rotate_angle, vjust = 0.5, hjust=h_just))
 }
 
+#' Produce a nice plot of the deep learning model training history
+#'
+#' @param history A history object, as outputed by Keras
+#'
+#' @return A ggplot object plotting the history
+#' @export
 plot_model_history = function(history){
   epochs = 1:length(history$loss)
   dplyr::bind_rows(tibble::tibble(epoch = epochs,
