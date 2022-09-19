@@ -14,4 +14,7 @@ Imports:
     glmnetUtils,
     scales,
     tibble,
-    tidyr
+    tidyr,
+    splines,
+    modelr,
+    purrr
