@@ -17,4 +17,5 @@ Imports:
     tidyr,
     splines,
     modelr,
-    purrr
+    purrr,
+    FNN
