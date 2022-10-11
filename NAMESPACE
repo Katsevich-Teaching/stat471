@@ -2,6 +2,7 @@
 
 export(bias_variance_ETE_plot)
 export(classification_metrics)
+export(coef_tidy)
 export(compute_bias_variance_ETE)
 export(cross_validate_spline)
 export(fit_spline_models)
