@@ -24,7 +24,7 @@ plot_glmnet = function(glmnet_fit, data, lambda = NULL, features_to_plot = NULL)
   features = rownames(beta_hat)
 
   # extract alpha
-  alpha = glmnet_fit$call$alpha
+  alpha = glmnet_fit$alpha
 
   # extract formula
   formula = glmnet_fit$call$formula
