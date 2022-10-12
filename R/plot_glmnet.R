@@ -121,12 +121,16 @@ plot_glmnet = function(glmnet_fit, data, lambda = NULL, features_to_plot = NULL)
               domain = c(1e-100, Inf))
   }
 
+  # get number of legend rows
+  legend_rows <- ceiling(length(features_to_plot)/3)
+
   # produce final plot
   df_to_plot_highlight |>
     ggplot2::ggplot(ggplot2::aes(x = lambda, y = beta_hat_std, group = Feature)) +
     ggplot2::geom_line(data = df_to_plot_other, color = "darkgray") +
     ggplot2::geom_line(ggplot2::aes(color = Feature)) +
     ggplot2::geom_vline(xintercept = lambda, linetype = "dashed") +
+    ggplot2::guides(color=guide_legend(nrow= legend_rows, byrow=TRUE)) +
     ggplot2::scale_x_continuous(trans = reverselog_trans()) +
     ggplot2::xlab(expr(lambda)) +
     ggplot2::ylab("Standardized Coefficient") +
@@ -135,8 +139,15 @@ plot_glmnet = function(glmnet_fit, data, lambda = NULL, features_to_plot = NULL)
           legend.title = ggplot2::element_blank())
 }
 
+#' extract_std_coefs
+#'
+#' @param glmnet_fit The glmnet fit object
+#' @param data The data
+#' @param lambda The value of lambda
+#'
+#' @return A tibble with columns `feature` and `coefficient`
+#' @export
 extract_std_coefs = function(glmnet_fit, data, lambda = NULL){
-
   # extract coefficients
   if(!is.null(glmnet_fit$beta)){
     beta_hat = glmnet_fit$beta
