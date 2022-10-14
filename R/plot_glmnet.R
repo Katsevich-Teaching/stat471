@@ -190,13 +190,14 @@ extract_std_coefs = function(glmnet_fit, data, lambda = NULL){
         coefficient = beta_hat_std[,which.min(abs(glmnet_fit$lambda-lambda))])
 }
 
-# Description: Plot CV as a function of alpha for cva.glmnet
-#
-#
-# Arguments:
-# glmnet_fit:       fit object returned by cva.glmnet
-#
-# Dependencies: The glmnetUtils package must be installed.
+#' plot_cva_glmnet
+#'
+#' Plot CV as a function of alpha for cva.glmnet
+#'
+#' @param elnet_fit fit object returned by cva.glmnet
+#'
+#' @return A ggplot object
+#' @export
 plot_cva_glmnet = function(elnet_fit){
   # extract the list of alpha values used
   alpha = elnet_fit$alpha
@@ -220,13 +221,14 @@ plot_cva_glmnet = function(elnet_fit){
     )
 }
 
-# Description: Extract best elastic net fit over alpha
-#
-#
-# Arguments:
-# glmnet_fit:       fit object returned by cva.glmnet
-#
-# Dependencies: The glmnetUtils package must be installed.
+#' extract_best_elnet
+#'
+#' Extract best elastic net fit over alpha
+#'
+#' @param elnet_fit  fit object returned by cva.glmnet
+#'
+#' @return glmnet fit object
+#' @export
 extract_best_elnet = function(elnet_fit){
   # extract the list of alpha values used
   alpha = elnet_fit$alpha

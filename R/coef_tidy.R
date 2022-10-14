@@ -8,39 +8,22 @@
 coef_tidy <- function(fit_object, s = NULL){
   # determine the type of fit that was used based on class attribute
   fit_class <- attr(fit_object, "class")
-  if(length(fit_class) == 1){
-    if(fit_class == "lm"){
-      fit_type <- "lm"
+  if("cv.glmnet" %in% fit_class){
+    fit_type <- "cv.glmnet"
+    if(is.null(s)){
+      s = "lambda.1se"
+    }
+  } else if("glmnet" %in% fit_class){
+    fit_type <- "glmnet"
+    if(is.null(s)){
+      stop("The s argument must be specified for glmnet fits")
     } else{
-      stop("Fit object must be obtained from either
-           lm(), glm(), glmnet(), or cv.glmnet()")
-    }
-  } else if(length(fit_class) == 2){
-    if("glm" %in% fit_class){
-      fit_type <- "glm"
-    } else if ("cv.glmnet" %in% fit_class){
-      fit_type <- "cv.glmnet"
-      if(is.null(s)){
-        s = "lambda.1se"
+      if(!is.numeric(s) | length(s) != 1){
+        stop("The s argument must be numeric and length 1 for glmnet fits")
       }
-    } else {
-      stop("Fit object must be obtained from either
-           lm(), glm(), glmnet(), or cv.glmnet()")
     }
-  } else if(length(fit_class) == 3){
-    if("glmnet" %in% fit_class){
-      fit_type <- "glmnet"
-      if(is.null(s)){
-        stop("The s argument must be specified for glmnet fits")
-      } else{
-        if(!is.numeric(s) | length(s) != 1){
-          stop("The s argument must be numeric and length 1 for glmnet fits")
-        }
-      }
-    } else{
-      stop("Fit object must be obtained from either
-           lm(), glm(), glmnet(), or cv.glmnet()")
-    }
+  } else if("lm" %in% fit_class | "glm" %in% fit_class){
+    fit_type <- "unpenalized"
   } else{
     stop("Fit object must be obtained from either
            lm(), glm(), glmnet(), or cv.glmnet()")
