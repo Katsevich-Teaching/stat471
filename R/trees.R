@@ -41,7 +41,7 @@ cv_tree <- function(tree_fit){
     ggplot2::ggplot(ggplot2::aes(x = nleaves, y = cv_mean, ymin = cv_mean - cv_se, ymax = cv_mean + cv_se)) +
     ggplot2::geom_point() +
     ggplot2::geom_line() +
-    ggplot2::geom_errorbar() +
+    ggplot2::geom_errorbar(width = 0.2) +
     ggplot2::geom_hline(ggplot2::aes(yintercept = min(cv_mean)), linetype = "dashed") +
     ggplot2::geom_hline(ggplot2::aes(yintercept = nleaves.1se_cv_threshold), linetype = "dashed") +
     ggplot2::geom_vline(ggplot2::aes(xintercept = nleaves.1se), linetype = "dotted") +
