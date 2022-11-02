@@ -176,13 +176,18 @@ cross_validate_spline <- function(x, y, nfolds, df_values) {
       cv_se = stats::sd(cv_fold) / sqrt(nfolds)
     )
 
-  df.1se <- cv_table |>
-    dplyr::filter(cv_mean - cv_se <= min(cv_mean)) |>
+  df.min <- cv_table |>
+    dplyr::filter(cv_mean == min(cv_mean)) |>
     dplyr::summarise(min(df)) |>
     dplyr::pull()
 
-  df.min <- cv_table |>
-    dplyr::filter(cv_mean == min(cv_mean)) |>
+  df.1se_cv_threshold <- cv_table |>
+    dplyr::filter(df == df.min) |>
+    dplyr::summarise(cv_max = cv_mean + cv_se) |>
+    dplyr::pull()
+
+  df.1se <- cv_table |>
+    dplyr::filter(cv_mean <= df.1se_cv_threshold) |>
     dplyr::summarise(min(df)) |>
     dplyr::pull()
 
@@ -193,6 +198,9 @@ cross_validate_spline <- function(x, y, nfolds, df_values) {
     ggplot2::geom_line() +
     ggplot2::geom_errorbar() +
     ggplot2::geom_hline(ggplot2::aes(yintercept = min(cv_mean)), linetype = "dashed") +
+    ggplot2::geom_hline(ggplot2::aes(yintercept = df.1se_cv_threshold), linetype = "dashed") +
+    ggplot2::geom_vline(ggplot2::aes(xintercept = df.1se), linetype = "dotted") +
+    ggplot2::geom_vline(ggplot2::aes(xintercept = df.min), linetype = "dotted") +
     ggplot2::xlab("Degrees of freedom") +
     ggplot2::ylab("CV error") +
     ggplot2::theme_bw()

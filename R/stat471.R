@@ -4,4 +4,5 @@ utils::globalVariables(c("Feature", "actual_response", "cv_fold", "cv_mean",
                          "bias", "data", "df", "error", "fitted", "mean_sq_bias",
                          "mean_variance", "model", "pred", "resample", "true_fit",
                          "variance", "x", "y", "observation", "probability",
-                         "feature", "prediction", "response"))
+                         "feature", "prediction", "response", "CP", "nleaves",
+                         "nsplit", "xerror", "xstd"))

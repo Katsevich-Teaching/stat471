@@ -18,4 +18,5 @@ Imports:
     splines,
     modelr,
     purrr,
-    FNN
+    FNN,
+    rpart
