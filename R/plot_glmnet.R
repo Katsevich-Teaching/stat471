@@ -130,7 +130,7 @@ plot_glmnet = function(glmnet_fit, data, lambda = NULL, features_to_plot = NULL)
     ggplot2::geom_line(data = df_to_plot_other, color = "darkgray") +
     ggplot2::geom_line(ggplot2::aes(color = Feature)) +
     ggplot2::geom_vline(xintercept = lambda, linetype = "dashed") +
-    ggplot2::guides(color=guide_legend(nrow= legend_rows, byrow=TRUE)) +
+    ggplot2::guides(color=ggplot2::guide_legend(nrow= legend_rows, byrow=TRUE)) +
     ggplot2::scale_x_continuous(trans = reverselog_trans()) +
     ggplot2::xlab(expr(lambda)) +
     ggplot2::ylab("Standardized Coefficient") +
