@@ -36,25 +36,33 @@ classification_metrics <- function(test_responses, test_predictions, positive_cl
   # compute confusion matrix
   conf_matrix <- table(test_responses, test_predictions)
 
-  # compute true positive rate
+  # calculate precision
   TP <- conf_matrix["1", "1"]
-  P <- sum(conf_matrix["1",])
-  TPR <- TP/P
+  FP <- conf_matrix["0", "1"]
+  if(TP + FP == 0){
+    precision <- 0
+  } else{
+    precision <- TP / (TP + FP)
+  }
 
-  # compute true negative rate
-  TN <- conf_matrix["0", "0"]
-  N <- sum(conf_matrix["0",])
-  TNR <- TN/N
+  # calculate recall
+  TP <- conf_matrix["1", "1"]
+  FN <- conf_matrix["1", "0"]
+  if(TP + FN == 0){
+    recall <- 0
+  } else{
+    recall <- TP / (TP + FN)
+  }
 
-  # compute F-score
-  F_score <- 1/(mean(c(1/TPR, 1/TNR)))
+  # calculate the F-score
+  F_score <- 1 / (mean(c(1 / precision, 1 / recall)))
 
   # return
   tibble::tibble(
     misclass_err = misclass_err,
     w_misclass_err = weighted_misclass_err,
-    TPR = TPR,
-    TNR = TNR,
+    precision = precision,
+    recall = recall,
     `F` = F_score
   )
 }
