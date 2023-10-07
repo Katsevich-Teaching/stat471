@@ -29,7 +29,7 @@ coef_tidy <- function(fit_object, s = NULL){
            lm(), glm(), glmnet(), or cv.glmnet()")
   }
 
-  if(fit_type %in% c("lm", "glm")){
+  if(fit_type == "unpenalized"){
     fit_object |>
       stats::coef() |>
       as.list() |>
